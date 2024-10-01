@@ -1,10 +1,47 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import reactLogo from "./assets/react.svg";
+import viteLogo from "/vite.svg";
+import "./App.css";
+import Description from "./components/description/Description";
+import Options from "./components/options/Options";
+import Feedback from "./components/feedback/Feedback";
+import Notification from "./components/notification/Notification";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [feedback, setFeedback] = useState({
+    good: 0,
+    neutral: 0,
+    bad: 0,
+  });
+  const reset = () => {
+    setFeedback({ good: 0, neutral: 0, bad: 0 });
+  };
+  const totalFeedbck = feedback.good + feedback.neutral + feedback.bad;
+
+  const updateFeedback = (feedbackType) => {
+    setFeedback({ ...feedback, [feedbackType]: feedback[feedbackType] + 1 });
+
+    // if (feedbackType === "good") {
+    //   setFeedback({ ...feedback, good: feedback.good + 1 });
+    // }
+    // if (feedbackType === "neutral") {
+    //   setFeedback({ ...feedback, neutral: feedback.neutral + 1 });
+    // }
+    // if (feedbackType === "bad") {
+    //   setFeedback({ ...feedback, bad: feedback.bad + 1 });
+    // }
+  };
+
+  // const onSetGoodFeedback = () => {
+  //   setFeedback({ ...feedback, good: feedback.good + 1 });
+  // };
+  // const onSetNeutralFeedback = () => {
+  //   setFeedback({ ...feedback, neutral: feedback.neutral + 1 });
+  // };
+
+  // const onSetBadFeedback = () => {
+  //   setFeedback({ ...feedback, bad: feedback.bad + 1 });
+  // };
 
   return (
     <>
@@ -16,20 +53,12 @@ function App() {
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+
+      <Description />
+      <Options updateFeedback={updateFeedback} totalFeedback={totalFeedbck} reset={reset} />
+      {totalFeedbck > 0 ? <Feedback feedback={feedback} /> : <Notification />}
     </>
-  )
+  );
 }
 
-export default App
+export default App;
