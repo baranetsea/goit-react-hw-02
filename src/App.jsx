@@ -6,13 +6,24 @@ import Description from "./components/description/Description";
 import Options from "./components/options/Options";
 import Feedback from "./components/feedback/Feedback";
 import Notification from "./components/notification/Notification";
+import { useEffect } from "react";
 
 function App() {
-  const [feedback, setFeedback] = useState({
-    good: 0,
-    neutral: 0,
-    bad: 0,
+  const [feedback, setFeedback] = useState(() => {
+    const value = localStorage.getItem("Fvalue");
+    const parsedValue = JSON.parse(value) ?? {
+      good: 0,
+      neutral: 0,
+      bad: 0,
+    };
+    return parsedValue;
   });
+
+  useEffect(() => {
+    const strValue = JSON.stringify(feedback);
+    localStorage.setItem("Fvalue", strValue);
+  }, [feedback]);
+
   const reset = () => {
     setFeedback({ good: 0, neutral: 0, bad: 0 });
   };
