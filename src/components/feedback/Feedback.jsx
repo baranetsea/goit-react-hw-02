@@ -3,6 +3,7 @@ import styles from "./Feedback.module.css";
 
 const Feedback = ({ feedback }) => {
   const totalF = feedback.good + feedback.neutral + feedback.bad;
+  const positiveF = Math.round((feedback.good / totalF) * 100);
   return (
     <div>
       <ul className={styles.list}>
@@ -10,7 +11,7 @@ const Feedback = ({ feedback }) => {
         <li>Neutral: {feedback.neutral}</li>
         <li>Bad: {feedback.bad}</li>
         <li>Total: {totalF}</li>
-        <li>Positive: {Math.round((feedback.good / totalF) * 100)} %</li>
+        <li>Positive: {positiveF} %</li>
       </ul>
     </div>
   );
