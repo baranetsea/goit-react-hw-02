@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import styles from "./Feedback.module.css";
 
-const Feedback = ({ feedback }) => {
-  const totalF = feedback.good + feedback.neutral + feedback.bad;
-  const positiveF = Math.round((feedback.good / totalF) * 100);
+const Feedback = ({ feedback, totalF, positiveF }) => {
+  // const totalF = feedback.good + feedback.neutral + feedback.bad;
+
   return (
     <div>
       <ul className={styles.list}>
